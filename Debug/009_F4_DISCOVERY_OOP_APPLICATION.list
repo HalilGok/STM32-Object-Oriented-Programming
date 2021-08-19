@@ -1,5 +1,5 @@
 
-009_F4_DISCOVERY_OPP_APPLICATION.elf:     file format elf32-littlearm
+009_F4_DISCOVERY_OOP_APPLICATION.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00021d1a  00000000  00000000  0002e880  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000b2b8  00000000  00000000  0005059a  2**0
+ 17 .debug_line   0000b2b1  00000000  00000000  0005059a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000c4493  00000000  00000000  0005b852  2**0
+ 18 .debug_str    000c4493  00000000  00000000  0005b84b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0011fce5  2**0
+ 19 .comment      00000053  00000000  00000000  0011fcde  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000031cc  00000000  00000000  0011fd38  2**2
+ 20 .debug_frame  000031cc  00000000  00000000  0011fd34  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1324,12 +1324,12 @@ Disassembly of section .text:
  8000fea:	bf00      	nop
 
 08000fec <Led_ctor>:
+ *      Author: theen
  */
 
 #include "Led.h"
 
-void Led_ctor(Led_Type * const me, LedColor_Type _color,LedState_Type _state)
-{
+void Led_ctor(Led_Type *const me, LedColor_Type _color, LedState_Type _state) {
  8000fec:	b580      	push	{r7, lr}
  8000fee:	b082      	sub	sp, #8
  8000ff0:	af00      	add	r7, sp, #0
@@ -1338,17 +1338,17 @@ void Led_ctor(Led_Type * const me, LedColor_Type _color,LedState_Type _state)
  8000ff6:	70fb      	strb	r3, [r7, #3]
  8000ff8:	4613      	mov	r3, r2
  8000ffa:	70bb      	strb	r3, [r7, #2]
-  me->color = _color;
+	me->color = _color;
  8000ffc:	687b      	ldr	r3, [r7, #4]
  8000ffe:	78fa      	ldrb	r2, [r7, #3]
  8001000:	701a      	strb	r2, [r3, #0]
-  me->state = _state;
+	me->state = _state;
  8001002:	687b      	ldr	r3, [r7, #4]
  8001004:	78ba      	ldrb	r2, [r7, #2]
  8001006:	705a      	strb	r2, [r3, #1]
 
-  /* Hardware init */
-   RCC->AHB1ENR |= LED_PORT_CLOCK; // (1u<<3)
+	/* Hardware init */
+	RCC->AHB1ENR |= LED_PORT_CLOCK; // (1u<<3)
  8001008:	4b48      	ldr	r3, [pc, #288]	; (800112c <Led_ctor+0x140>)
  800100a:	6b1b      	ldr	r3, [r3, #48]	; 0x30
  800100c:	4a47      	ldr	r2, [pc, #284]	; (800112c <Led_ctor+0x140>)
@@ -1518,7 +1518,6 @@ void Led_ctor(Led_Type * const me, LedColor_Type _color,LedState_Type _state)
  800111e:	f002 fd07 	bl	8003b30 <iprintf>
 		break;
  8001122:	bf00      	nop
-
 	}
 }
  8001124:	bf00      	nop
@@ -1537,17 +1536,17 @@ void Led_ctor(Led_Type * const me, LedColor_Type _color,LedState_Type _state)
  8001150:	08007918 	.word	0x08007918
 
 08001154 <Led_getState>:
+		break;
 
 	}
 }
 
-LedState_Type Led_getState(Led_Type * const me)
-{
+LedState_Type Led_getState(Led_Type *const me) {
  8001154:	b580      	push	{r7, lr}
  8001156:	b082      	sub	sp, #8
  8001158:	af00      	add	r7, sp, #0
  800115a:	6078      	str	r0, [r7, #4]
-	 switch(me->color){
+	switch (me->color) {
  800115c:	687b      	ldr	r3, [r7, #4]
  800115e:	781b      	ldrb	r3, [r3, #0]
  8001160:	2b03      	cmp	r3, #3
@@ -1559,43 +1558,43 @@ LedState_Type Led_getState(Led_Type * const me)
  8001170:	0800118b 	.word	0x0800118b
  8001174:	080011a7 	.word	0x080011a7
  8001178:	08001199 	.word	0x08001199
-	    case RED:
-	    	printf("The RED Led is currently %d\n\r",me->state);
+	case RED:
+		printf("The RED Led is currently %d\n\r", me->state);
  800117c:	687b      	ldr	r3, [r7, #4]
  800117e:	785b      	ldrb	r3, [r3, #1]
  8001180:	4619      	mov	r1, r3
  8001182:	480f      	ldr	r0, [pc, #60]	; (80011c0 <Led_getState+0x6c>)
  8001184:	f002 fcd4 	bl	8003b30 <iprintf>
-	    	break;
+		break;
  8001188:	e014      	b.n	80011b4 <Led_getState+0x60>
-	    case GREEN:
-	        printf("The GREEN Led is currently %d\n\r",me->state);
+	case GREEN:
+		printf("The GREEN Led is currently %d\n\r", me->state);
  800118a:	687b      	ldr	r3, [r7, #4]
  800118c:	785b      	ldrb	r3, [r3, #1]
  800118e:	4619      	mov	r1, r3
  8001190:	480c      	ldr	r0, [pc, #48]	; (80011c4 <Led_getState+0x70>)
  8001192:	f002 fccd 	bl	8003b30 <iprintf>
-	        break;
+		break;
  8001196:	e00d      	b.n	80011b4 <Led_getState+0x60>
-	    case BLUE:
-	        printf("The BLUE Led is currently %d\n\r",me->state);
+	case BLUE:
+		printf("The BLUE Led is currently %d\n\r", me->state);
  8001198:	687b      	ldr	r3, [r7, #4]
  800119a:	785b      	ldrb	r3, [r3, #1]
  800119c:	4619      	mov	r1, r3
  800119e:	480a      	ldr	r0, [pc, #40]	; (80011c8 <Led_getState+0x74>)
  80011a0:	f002 fcc6 	bl	8003b30 <iprintf>
-	        break;
+		break;
  80011a4:	e006      	b.n	80011b4 <Led_getState+0x60>
-	    case YELLOW:
-	        printf("The YELLOW Led is currently %d\n\r",me->state);
+	case YELLOW:
+		printf("The YELLOW Led is currently %d\n\r", me->state);
  80011a6:	687b      	ldr	r3, [r7, #4]
  80011a8:	785b      	ldrb	r3, [r3, #1]
  80011aa:	4619      	mov	r1, r3
  80011ac:	4807      	ldr	r0, [pc, #28]	; (80011cc <Led_getState+0x78>)
  80011ae:	f002 fcbf 	bl	8003b30 <iprintf>
-	        break;
+		break;
  80011b2:	bf00      	nop
-	  }
+	}
 	return me->state;
  80011b4:	687b      	ldr	r3, [r7, #4]
  80011b6:	785b      	ldrb	r3, [r3, #1]
@@ -1611,74 +1610,74 @@ LedState_Type Led_getState(Led_Type * const me)
  80011cc:	08007994 	.word	0x08007994
 
 080011d0 <main>:
+
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
-int main(void)
-{
+ * @brief  The application entry point.
+ * @retval int
+ */
+int main(void) {
  80011d0:	b580      	push	{r7, lr}
  80011d2:	af00      	add	r7, sp, #0
+	/* USER CODE END 1 */
 
+	/* MCU Configuration--------------------------------------------------------*/
 
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+	HAL_Init();
  80011d4:	f000 fae8 	bl	80017a8 <HAL_Init>
-  /* USER CODE BEGIN Init */
+	/* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+	/* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+	/* Configure the system clock */
+	SystemClock_Config();
  80011d8:	f000 f830 	bl	800123c <SystemClock_Config>
-  /* USER CODE BEGIN SysInit */
+	/* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+	/* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
+	/* Initialize all configured peripherals */
+	MX_GPIO_Init();
  80011dc:	f000 f8c2 	bl	8001364 <MX_GPIO_Init>
-  MX_USART2_UART_Init();
+	MX_USART2_UART_Init();
  80011e0:	f000 f896 	bl	8001310 <MX_USART2_UART_Init>
-  /* USER CODE BEGIN 2 */
-  RetargetInit(&huart2);
+	/* USER CODE BEGIN 2 */
+	RetargetInit(&huart2);
  80011e4:	4810      	ldr	r0, [pc, #64]	; (8001228 <main+0x58>)
  80011e6:	f000 f8eb 	bl	80013c0 <RetargetInit>
 
-  Led_ctor(&led1, RED, ON);
+	Led_ctor(&led1, RED, ON);
  80011ea:	2201      	movs	r2, #1
  80011ec:	2100      	movs	r1, #0
  80011ee:	480f      	ldr	r0, [pc, #60]	; (800122c <main+0x5c>)
  80011f0:	f7ff fefc 	bl	8000fec <Led_ctor>
-  Led_ctor(&led2, BLUE, ON);
+	Led_ctor(&led2, BLUE, ON);
  80011f4:	2201      	movs	r2, #1
  80011f6:	2103      	movs	r1, #3
  80011f8:	480d      	ldr	r0, [pc, #52]	; (8001230 <main+0x60>)
  80011fa:	f7ff fef7 	bl	8000fec <Led_ctor>
-  Led_ctor(&led3, YELLOW, ON);
+	Led_ctor(&led3, YELLOW, ON);
  80011fe:	2201      	movs	r2, #1
  8001200:	2102      	movs	r1, #2
  8001202:	480c      	ldr	r0, [pc, #48]	; (8001234 <main+0x64>)
  8001204:	f7ff fef2 	bl	8000fec <Led_ctor>
-  Led_ctor(&led4, GREEN, ON);
+	Led_ctor(&led4, GREEN, ON);
  8001208:	2201      	movs	r2, #1
  800120a:	2101      	movs	r1, #1
  800120c:	480a      	ldr	r0, [pc, #40]	; (8001238 <main+0x68>)
  800120e:	f7ff feed 	bl	8000fec <Led_ctor>
-  Led_getState(&led1);
+	Led_getState(&led1);
  8001212:	4806      	ldr	r0, [pc, #24]	; (800122c <main+0x5c>)
  8001214:	f7ff ff9e 	bl	8001154 <Led_getState>
-  Led_getState(&led2);
+	Led_getState(&led2);
  8001218:	4805      	ldr	r0, [pc, #20]	; (8001230 <main+0x60>)
  800121a:	f7ff ff9b 	bl	8001154 <Led_getState>
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
 
-    HAL_Delay(100);
+	/* Infinite loop */
+	/* USER CODE BEGIN WHILE */
+	while (1) {
+
+		HAL_Delay(100);
  800121e:	2064      	movs	r0, #100	; 0x64
  8001220:	f000 fb34 	bl	800188c <HAL_Delay>
  8001224:	e7fb      	b.n	800121e <main+0x4e>
@@ -1690,22 +1689,22 @@ int main(void)
  8001238:	20000208 	.word	0x20000208
 
 0800123c <SystemClock_Config>:
+// ***REST OF INITIALIZATION CODE NOT SHOWN***
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
-void SystemClock_Config(void)
-{
+ * @brief System Clock Configuration
+ * @retval None
+ */
+void SystemClock_Config(void) {
  800123c:	b580      	push	{r7, lr}
  800123e:	b094      	sub	sp, #80	; 0x50
  8001240:	af00      	add	r7, sp, #0
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
  8001242:	f107 0320 	add.w	r3, r7, #32
  8001246:	2230      	movs	r2, #48	; 0x30
  8001248:	2100      	movs	r1, #0
  800124a:	4618      	mov	r0, r3
  800124c:	f001 fdee 	bl	8002e2c <memset>
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
  8001250:	f107 030c 	add.w	r3, r7, #12
  8001254:	2200      	movs	r2, #0
  8001256:	601a      	str	r2, [r3, #0]
@@ -1714,9 +1713,9 @@ void SystemClock_Config(void)
  800125c:	60da      	str	r2, [r3, #12]
  800125e:	611a      	str	r2, [r3, #16]
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
+	/** Configure the main internal regulator output voltage
+	 */
+	__HAL_RCC_PWR_CLK_ENABLE();
  8001260:	2300      	movs	r3, #0
  8001262:	60bb      	str	r3, [r7, #8]
  8001264:	4b28      	ldr	r3, [pc, #160]	; (8001308 <SystemClock_Config+0xcc>)
@@ -1729,7 +1728,7 @@ void SystemClock_Config(void)
  8001274:	f003 5380 	and.w	r3, r3, #268435456	; 0x10000000
  8001278:	60bb      	str	r3, [r7, #8]
  800127a:	68bb      	ldr	r3, [r7, #8]
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
  800127c:	2300      	movs	r3, #0
  800127e:	607b      	str	r3, [r7, #4]
  8001280:	4b22      	ldr	r3, [pc, #136]	; (800130c <SystemClock_Config+0xd0>)
@@ -1742,67 +1741,66 @@ void SystemClock_Config(void)
  8001290:	f403 4380 	and.w	r3, r3, #16384	; 0x4000
  8001294:	607b      	str	r3, [r7, #4]
  8001296:	687b      	ldr	r3, [r7, #4]
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+	/** Initializes the RCC Oscillators according to the specified parameters
+	 * in the RCC_OscInitTypeDef structure.
+	 */
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
  8001298:	2302      	movs	r3, #2
  800129a:	623b      	str	r3, [r7, #32]
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
  800129c:	2301      	movs	r3, #1
  800129e:	62fb      	str	r3, [r7, #44]	; 0x2c
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+	RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
  80012a0:	2310      	movs	r3, #16
  80012a2:	633b      	str	r3, [r7, #48]	; 0x30
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
  80012a4:	2302      	movs	r3, #2
  80012a6:	63bb      	str	r3, [r7, #56]	; 0x38
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
  80012a8:	2300      	movs	r3, #0
  80012aa:	63fb      	str	r3, [r7, #60]	; 0x3c
-  RCC_OscInitStruct.PLL.PLLM = 8;
+	RCC_OscInitStruct.PLL.PLLM = 8;
  80012ac:	2308      	movs	r3, #8
  80012ae:	643b      	str	r3, [r7, #64]	; 0x40
-  RCC_OscInitStruct.PLL.PLLN = 168;
+	RCC_OscInitStruct.PLL.PLLN = 168;
  80012b0:	23a8      	movs	r3, #168	; 0xa8
  80012b2:	647b      	str	r3, [r7, #68]	; 0x44
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
  80012b4:	2302      	movs	r3, #2
  80012b6:	64bb      	str	r3, [r7, #72]	; 0x48
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+	RCC_OscInitStruct.PLL.PLLQ = 4;
  80012b8:	2304      	movs	r3, #4
  80012ba:	64fb      	str	r3, [r7, #76]	; 0x4c
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
  80012bc:	f107 0320 	add.w	r3, r7, #32
  80012c0:	4618      	mov	r0, r3
  80012c2:	f000 fd89 	bl	8001dd8 <HAL_RCC_OscConfig>
  80012c6:	4603      	mov	r3, r0
  80012c8:	2b00      	cmp	r3, #0
  80012ca:	d001      	beq.n	80012d0 <SystemClock_Config+0x94>
-  {
-    Error_Handler();
+		Error_Handler();
  80012cc:	f000 f872 	bl	80013b4 <Error_Handler>
-  }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+	}
+	/** Initializes the CPU, AHB and APB buses clocks
+	 */
+	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
  80012d0:	230f      	movs	r3, #15
  80012d2:	60fb      	str	r3, [r7, #12]
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+			| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
  80012d4:	2302      	movs	r3, #2
  80012d6:	613b      	str	r3, [r7, #16]
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
  80012d8:	2300      	movs	r3, #0
  80012da:	617b      	str	r3, [r7, #20]
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
  80012dc:	f44f 53a0 	mov.w	r3, #5120	; 0x1400
  80012e0:	61bb      	str	r3, [r7, #24]
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
  80012e2:	f44f 5380 	mov.w	r3, #4096	; 0x1000
  80012e6:	61fb      	str	r3, [r7, #28]
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
  80012e8:	f107 030c 	add.w	r3, r7, #12
  80012ec:	2105      	movs	r1, #5
  80012ee:	4618      	mov	r0, r3
@@ -1810,10 +1808,9 @@ void SystemClock_Config(void)
  80012f4:	4603      	mov	r3, r0
  80012f6:	2b00      	cmp	r3, #0
  80012f8:	d001      	beq.n	80012fe <SystemClock_Config+0xc2>
-  {
-    Error_Handler();
+		Error_Handler();
  80012fa:	f000 f85b 	bl	80013b4 <Error_Handler>
-  }
+	}
 }
  80012fe:	bf00      	nop
  8001300:	3750      	adds	r7, #80	; 0x50
@@ -1824,64 +1821,63 @@ void SystemClock_Config(void)
  800130c:	40007000 	.word	0x40007000
 
 08001310 <MX_USART2_UART_Init>:
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART2_UART_Init(void)
-{
+/**
+ * @brief USART2 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_USART2_UART_Init(void) {
  8001310:	b580      	push	{r7, lr}
  8001312:	af00      	add	r7, sp, #0
-  /* USER CODE END USART2_Init 0 */
+	/* USER CODE END USART2_Init 0 */
 
-  /* USER CODE BEGIN USART2_Init 1 */
+	/* USER CODE BEGIN USART2_Init 1 */
 
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
+	/* USER CODE END USART2_Init 1 */
+	huart2.Instance = USART2;
  8001314:	4b11      	ldr	r3, [pc, #68]	; (800135c <MX_USART2_UART_Init+0x4c>)
  8001316:	4a12      	ldr	r2, [pc, #72]	; (8001360 <MX_USART2_UART_Init+0x50>)
  8001318:	601a      	str	r2, [r3, #0]
-  huart2.Init.BaudRate = 115200;
+	huart2.Init.BaudRate = 115200;
  800131a:	4b10      	ldr	r3, [pc, #64]	; (800135c <MX_USART2_UART_Init+0x4c>)
  800131c:	f44f 32e1 	mov.w	r2, #115200	; 0x1c200
  8001320:	605a      	str	r2, [r3, #4]
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+	huart2.Init.WordLength = UART_WORDLENGTH_8B;
  8001322:	4b0e      	ldr	r3, [pc, #56]	; (800135c <MX_USART2_UART_Init+0x4c>)
  8001324:	2200      	movs	r2, #0
  8001326:	609a      	str	r2, [r3, #8]
-  huart2.Init.StopBits = UART_STOPBITS_1;
+	huart2.Init.StopBits = UART_STOPBITS_1;
  8001328:	4b0c      	ldr	r3, [pc, #48]	; (800135c <MX_USART2_UART_Init+0x4c>)
  800132a:	2200      	movs	r2, #0
  800132c:	60da      	str	r2, [r3, #12]
-  huart2.Init.Parity = UART_PARITY_NONE;
+	huart2.Init.Parity = UART_PARITY_NONE;
  800132e:	4b0b      	ldr	r3, [pc, #44]	; (800135c <MX_USART2_UART_Init+0x4c>)
  8001330:	2200      	movs	r2, #0
  8001332:	611a      	str	r2, [r3, #16]
-  huart2.Init.Mode = UART_MODE_TX_RX;
+	huart2.Init.Mode = UART_MODE_TX_RX;
  8001334:	4b09      	ldr	r3, [pc, #36]	; (800135c <MX_USART2_UART_Init+0x4c>)
  8001336:	220c      	movs	r2, #12
  8001338:	615a      	str	r2, [r3, #20]
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
  800133a:	4b08      	ldr	r3, [pc, #32]	; (800135c <MX_USART2_UART_Init+0x4c>)
  800133c:	2200      	movs	r2, #0
  800133e:	619a      	str	r2, [r3, #24]
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+	huart2.Init.OverSampling = UART_OVERSAMPLING_16;
  8001340:	4b06      	ldr	r3, [pc, #24]	; (800135c <MX_USART2_UART_Init+0x4c>)
  8001342:	2200      	movs	r2, #0
  8001344:	61da      	str	r2, [r3, #28]
-  if (HAL_UART_Init(&huart2) != HAL_OK)
+	if (HAL_UART_Init(&huart2) != HAL_OK) {
  8001346:	4805      	ldr	r0, [pc, #20]	; (800135c <MX_USART2_UART_Init+0x4c>)
  8001348:	f001 f98e 	bl	8002668 <HAL_UART_Init>
  800134c:	4603      	mov	r3, r0
  800134e:	2b00      	cmp	r3, #0
  8001350:	d001      	beq.n	8001356 <MX_USART2_UART_Init+0x46>
-  {
-    Error_Handler();
+		Error_Handler();
  8001352:	f000 f82f 	bl	80013b4 <Error_Handler>
-  }
-  /* USER CODE BEGIN USART2_Init 2 */
+	}
+	/* USER CODE BEGIN USART2_Init 2 */
 
-  /* USER CODE END USART2_Init 2 */
+	/* USER CODE END USART2_Init 2 */
 
 }
  8001356:	bf00      	nop
@@ -1891,18 +1887,18 @@ static void MX_USART2_UART_Init(void)
  8001360:	40004400 	.word	0x40004400
 
 08001364 <MX_GPIO_Init>:
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_GPIO_Init(void)
-{
+/**
+ * @brief GPIO Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_GPIO_Init(void) {
  8001364:	b480      	push	{r7}
  8001366:	b083      	sub	sp, #12
  8001368:	af00      	add	r7, sp, #0
 
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOH_CLK_ENABLE();
+	/* GPIO Ports Clock Enable */
+	__HAL_RCC_GPIOH_CLK_ENABLE();
  800136a:	2300      	movs	r3, #0
  800136c:	607b      	str	r3, [r7, #4]
  800136e:	4b10      	ldr	r3, [pc, #64]	; (80013b0 <MX_GPIO_Init+0x4c>)
@@ -1915,7 +1911,7 @@ static void MX_GPIO_Init(void)
  800137e:	f003 0380 	and.w	r3, r3, #128	; 0x80
  8001382:	607b      	str	r3, [r7, #4]
  8001384:	687b      	ldr	r3, [r7, #4]
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE();
  8001386:	2300      	movs	r3, #0
  8001388:	603b      	str	r3, [r7, #0]
  800138a:	4b09      	ldr	r3, [pc, #36]	; (80013b0 <MX_GPIO_Init+0x4c>)
@@ -1939,12 +1935,12 @@ static void MX_GPIO_Init(void)
  80013b0:	40023800 	.word	0x40023800
 
 080013b4 <Error_Handler>:
+
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
-void Error_Handler(void)
-{
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
+void Error_Handler(void) {
  80013b4:	b480      	push	{r7}
  80013b6:	af00      	add	r7, sp, #0
   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
@@ -1956,10 +1952,10 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  80013b8:	b672      	cpsid	i
 }
  80013ba:	bf00      	nop
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
+	/* USER CODE BEGIN Error_Handler_Debug */
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
  80013bc:	e7fe      	b.n	80013bc <Error_Handler+0x8>
 	...
 

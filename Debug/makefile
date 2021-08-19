@@ -35,34 +35,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := 009_F4_DISCOVERY_OPP_APPLICATION
+BUILD_ARTIFACT_NAME := 009_F4_DISCOVERY_OOP_APPLICATION
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX := 
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME).$(BUILD_ARTIFACT_EXTENSION)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-009_F4_DISCOVERY_OPP_APPLICATION.elf \
+009_F4_DISCOVERY_OOP_APPLICATION.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-009_F4_DISCOVERY_OPP_APPLICATION.list \
+009_F4_DISCOVERY_OOP_APPLICATION.list \
 
 OBJCOPY_BIN += \
-009_F4_DISCOVERY_OPP_APPLICATION.bin \
+009_F4_DISCOVERY_OOP_APPLICATION.bin \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: 009_F4_DISCOVERY_OPP_APPLICATION.elf secondary-outputs
+main-build: 009_F4_DISCOVERY_OOP_APPLICATION.elf secondary-outputs
 
 # Tool invocations
-009_F4_DISCOVERY_OPP_APPLICATION.elf: $(OBJS) $(USER_OBJS) E:\Cube_ide_Works\009_F4_DISCOVERY_OPP_APPLICATION\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "009_F4_DISCOVERY_OPP_APPLICATION.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Cube_ide_Works\009_F4_DISCOVERY_OPP_APPLICATION\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="009_F4_DISCOVERY_OPP_APPLICATION.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+009_F4_DISCOVERY_OOP_APPLICATION.elf: $(OBJS) $(USER_OBJS) E:\Cube_ide_Works\009_F4_DISCOVERY_OPP_APPLICATION\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "009_F4_DISCOVERY_OOP_APPLICATION.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Cube_ide_Works\009_F4_DISCOVERY_OPP_APPLICATION\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="009_F4_DISCOVERY_OOP_APPLICATION.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -71,13 +71,13 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-009_F4_DISCOVERY_OPP_APPLICATION.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "009_F4_DISCOVERY_OPP_APPLICATION.list"
+009_F4_DISCOVERY_OOP_APPLICATION.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "009_F4_DISCOVERY_OOP_APPLICATION.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-009_F4_DISCOVERY_OPP_APPLICATION.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "009_F4_DISCOVERY_OPP_APPLICATION.bin"
+009_F4_DISCOVERY_OOP_APPLICATION.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "009_F4_DISCOVERY_OOP_APPLICATION.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
