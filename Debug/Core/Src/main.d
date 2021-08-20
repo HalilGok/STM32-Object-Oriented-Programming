@@ -25,7 +25,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  C:/Users/theen/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  C:/Users/theen/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  C:/Users/theen/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/retarget.h ../Core/Inc/Led.h ../Core/Inc/retarget.h
+ ../Core/Inc/retarget.h ../Core/Inc/Led.h ../Core/Inc/retarget.h \
+ ../Core/Inc/PowerLed.h ../Core/Inc/Led.h
 
 ../Core/Inc/main.h:
 
@@ -86,3 +87,7 @@ C:/Users/theen/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.2/Drivers/STM32F4xx_HA
 ../Core/Inc/Led.h:
 
 ../Core/Inc/retarget.h:
+
+../Core/Inc/PowerLed.h:
+
+../Core/Inc/Led.h:

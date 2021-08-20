@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "retarget.h"
 #include "Led.h"
+#include "PowerLed.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -30,6 +31,8 @@ UART_HandleTypeDef huart2;
 char buf[100];
 
 Led_Type led1, led2, led3, led4;
+PowerLed_Type pled1,pled2;
+led_elec_type power_led1,power_led2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,16 +78,25 @@ int main(void) {
 	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
 	RetargetInit(&huart2);
+//** for Led.h test **///
+//	Led_ctor(&led1, RED, ON);
+//	Led_ctor(&led2, BLUE, ON);
+//	Led_ctor(&led3, YELLOW, ON);
+//	Led_ctor(&led4, GREEN, ON);
+//	Led_getState(&led1);
+//	Led_getState(&led2);
+//
+////  Led_setState(&led, ON);
+////  Led_setState(&led2, OFF);
 
-	Led_ctor(&led1, RED, ON);
-	Led_ctor(&led2, BLUE, ON);
-	Led_ctor(&led3, YELLOW, ON);
-	Led_ctor(&led4, GREEN, ON);
-	Led_getState(&led1);
-	Led_getState(&led2);
+	///** for PowerLed.h test  **//
 
-//  Led_setState(&led, ON);
-//  Led_setState(&led2, OFF);
+	PowerLed_ctor(&pled1, BLUE, DIAM_5MM, ON, CURR_NORMAL, VOL_HIGH);
+	PowerLed_ctor(&pled2, GREEN, DIAM_7MM, ON, CURR_LOW, CURR_LOW);
+
+	power_led1 = PowerLed_ComputePower(&pled1);
+	power_led2 = PowerLed_ComputePower(&pled2);
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
